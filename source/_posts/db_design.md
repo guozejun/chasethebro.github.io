@@ -1,7 +1,10 @@
 ---
 title: 关系数据库设计
-tag: Database
+tag: [数据库]
 abstract: 数据库第7、8章复习提纲
+date: 2020-05-10 21:24:50
+categories:
+    - 数据库
 ---
 
 ## 数据库设计与E-R模型

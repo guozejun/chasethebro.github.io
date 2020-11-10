@@ -1,8 +1,10 @@
 ---
 title: B+-trees
 date: 2019-05-18 20:43:48
-tags: Database
+tags: [数据结构]
 abstract: The review of B+-tree, which disturbs me for a long time.
+categories:
+    - 数据库
 ---
 ## What is a **B+**-tree
 
@@ -14,7 +16,7 @@ Hence the B+-tree, in which each node stores up to $d$ references to children an
 
 Here is a fairly small tree using 4 as our value for $d$.
 
-![](bplustree-0.png)
+![](bplus-trees/bplustree-0.png)
 
 A B+-tree requires that each leaf be the same distance from the root, as in this picture, where searching for any of the 11 values (all listed on the bottom level) will involve loading three nodes from the disk (the root block, a second-level block, and a leaf).
 
@@ -63,24 +65,24 @@ Descend to the leaf where the key exists.
 
 **Initial:**
 
-![](bplustree-1.png)
+![](./bplus-trees/bplustree-1.png)
 
 **Insert 9:**
 
-![](insert9.png)
+![](./bplus-trees/insert9.png)
 
 **Insert 10:**
 
-![](insert10.png)
+![](./bplus-trees/insert10.png)
 
 **Insert 8:**
 
-![](insert8.png)
+![](./bplus-trees/insert8.png)
 
 **Delete 23:**
 
-![](delete23.png)
+![](./bplus-trees/delete23.png)
 
 **Delete 19:**
 
-![](delete19.png)
+![](./bplus-trees/delete19.png)
