@@ -20,7 +20,17 @@ categories:
 
 ### 模板的形参
 
+类型形参、非类型形参和模板形参
 
+#### 类型形参
+
+类型形参由关见字class或typename后接说明符构成，可以定义多个类型形参。
+
+#### 模板形参（Template Template Parameters）
+
+就是将一个模板作为另一个模板的参数。一个template parameter本身也是一个class template
+
+#### 无类型模版参数
 
 ## 参考资料
 > - []()
