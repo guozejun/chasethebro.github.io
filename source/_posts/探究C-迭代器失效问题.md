@@ -30,15 +30,15 @@ cout << dq.front() << endl;
 
 > deque的空间由一段一段的定量连续空间构成，deque采用一块map作为主控，这个map是一块连续空间，其中每个元素都是指针，指向另一段较大的连续空间，称为缓冲区。
 >
-> ![](./探究C-迭代器失效问题/memory.png)
+> ![img](./探究C-迭代器失效问题/memory.png)
 
 迭代器中需要四个指针，当前元素的指针，当前元素所在的缓冲区的起始指针，当前元素所在缓冲区的尾指针，指向map中指向所在缓冲区的指针，迭代器的结构如下图所示。
 
-![](./探究C-迭代器失效问题/iterator_structure.png)
+![img](./探究C-迭代器失效问题/iterator_structure.png)
 
 接下来看STL中对于push_front()函数的具体实现
 
-![](探究C-迭代器失效问题/push_front.png)
+![img](探究C-迭代器失效问题/push_front.png)
 
 接下来我们通过一段代码来分析，push_front(4)之后发生了什么
 
@@ -91,13 +91,11 @@ cout << v1[0] << endl;
 */
 ```
 
-
-
 ## 总结
 
 迭代器失效，本质上就是指针指向的内存空间上原本存在的数据已经发生了变化。这个事情提醒了我不要想当然的去对STL容器的底层做猜测假设，一定要对它的具体实现方法深入的了解。
 
 ## 参考资料
-> - [STL源码剖析——deque的实现原理和使用方法详解](https://blog.csdn.net/baidu_28312631/article/details/48000123)
-> - [std::deque::deque](std::[deque](http://www.cplusplus.com/reference/deque/deque/)::deque)
 
+> - [STL源码剖析——deque的实现原理和使用方法详解](https://blog.csdn.net/baidu_28312631/article/details/48000123)
+> - [std::deque::deque](http://www.cplusplus.com/reference/deque/deque/)

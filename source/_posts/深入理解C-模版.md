@@ -39,11 +39,13 @@ template<class T, int a> class B {
     ...
 }
 ```
+
 - 非类型模板的形参只能是整型，指针和引用
 - 调用非类型模板形参的实参必须是一个常量表达式
 - 全局变量的地址或引用，全局对象的地址或引用const类型变量是常量表达式，可以用作非类型模板形参的实参
 
 ## 参考资料
+
 > - [C++ 模板详解](https://www.runoob.com/w3cnote/c-templates-detail.html)
 > - [C++ 函数模板&类模板详解](https://blog.csdn.net/wcc27857285/article/details/84711585)
 > - [C++模板](https://www.cnblogs.com/gw811/archive/2012/10/25/2738929.html)

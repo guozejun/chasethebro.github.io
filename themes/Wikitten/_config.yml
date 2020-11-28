@@ -11,7 +11,7 @@ customize:
         enabled: true
         width: 40
         height: 40
-        url: css/images/logo.png
+        url: # css/images/logo.png
     profile:
         enabled: false # Whether to show profile bar
         avatar: # css/images/logo.png
@@ -54,11 +54,11 @@ search:
 
 # History version 
 history_control: # make you wiki has history version control in page
-    enable: false
+    enable: true
     server_link: https://github.com # recommend use GitHub https://github.com
-    user: Leslie
-    repertory: Wiki-site
-    branch: writing
+    user: ChaseTheBro
+    repertory: chasethebro.github.io
+    branch: hexo
 
 # Comment
 comment:
