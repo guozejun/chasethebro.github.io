@@ -3,6 +3,7 @@ title: Approximation
 abstract: In computer science, a polynomial-time approximation scheme (PTAS) is a type of approximation algorithm for optimization problems (most often, NP-hard optimization problems).
 date: 2019-05-15 20:13:03
 tags: [数据结构]
+mathjax: true
 categories:
     - 数据结构
 ---
