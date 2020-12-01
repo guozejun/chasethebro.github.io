@@ -435,6 +435,43 @@ int Display(int s)
 
 内置的引用类型有**object**、**dynamic**和**string**。**Object**类型是C#通用类型系统中所有数据类型的终极基类。Object是System.Object类的别名。Object类型可以在类型转换之后被分配任何其他类型的值（编译时检查）。任何类型的值都可以存储在动态数据类型变量中。这些变量的类型检查在运行时发生。String类型可以被分配任何字符串的值。String是System.String类的别名。
 
+### 内置引用类型
+
+#### object类型
+
+`object`类型是System.Object的别名，所有类型都直接或者间接的从System.Object类型派生。值类型转换为object类型的过程被称为装箱，object类型转换为值类型的过程被称为取消装箱。
+
+#### string类型
+
+string类型是Unicode字符的集合，是System.String的别名。使用==和!=比较Unicode集合的值是否相等，使用Object.ReferenceEquals()比较引用值本身是否相等。逐字字符串以@开头，不处理转义序列。若要在 @-quoted 字符串中包含双引号，双倍添加即可：
+
+```csharp
+@"""Ahoy!"" cried the captain." // "Ahoy!" cried the captain.
+```
+
+#### delegate类型
+
+delegate类型的声明和method signature相似。有一个返回值和任意数目的参数列表。delegate用于封装命名方法或者匿名方法的引用类型，类似于函数指针。委托是类型安全的。
+
+#### dynamic类型
+
+dynamic 类型表示变量的使用和对其成员的引用绕过编译时类型检查。 改为在运行时解析这些操作。 dynamic 类型简化了对 COM API（例如 Office Automation API）、动态 API（例如 IronPython 库）和 HTML 文档对象模型 (DOM) 的访问。
+
+### class
+
+C#只允许单一继承，但是一个类可以实现多个接口。
+
+### interface
+
+从C# 8.0开始，接口可为成员定义默认实现。 它还可以定义static成员，以便提供常见功能的单个实现。
+
+### 可为null的引用类型
+
+在可为 null 的感知上下文中：
+- 引用类型 T 的变量必须用非 null 值进行初始化，并且不能为其分配可能为 null 的值。
+- 引用类型 T? 的变量可以用 null 进行初始化，也可以分配 null，但在取消引用之前必须对照 null 进行检查。
+- 类型为 T? 的变量 m 在应用 null 包容运算符时被认为是非空的，如 m! 中所示。
+
 ## 参考资料
 
 > - [C#教程 菜鸟教程](https://www.runoob.com/csharp/)
