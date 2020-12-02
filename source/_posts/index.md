@@ -1,7 +1,7 @@
 ---
 title: Leslie's Tech Wiki
-toc: true
-date: 2020-11-29 03:51:53
+toc: false
+date: 2019-4-29 03:51:53
 tags:
 categories:
 ---
