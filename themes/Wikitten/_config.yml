@@ -20,7 +20,10 @@ customize:
         author_title: Designer & Programmer
         location: Hangzhou, China
         follow: https://github.com/ChaseTheBro
-    highlight: monokai
+    highlight:
+        theme: atom-one-light
+        clipboard: true
+        fold: unfolded
     sidebar: left # sidebar position, options: left, right
     category_perExpand: false # enable article categories list per expanding
     thumbnail: true # enable posts thumbnail, options: true, false
