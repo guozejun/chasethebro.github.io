@@ -197,11 +197,11 @@ sidebar:
     # Left sidebar configurations
     left:
         # Whether the sidebar sticks to the top when page scrolls
-        sticky: false
+        sticky: true
     # Right sidebar configurations
     right:
         # Whether the sidebar sticks to the top when page scrolls
-        sticky: false
+        sticky: true
 # Sidebar widget configurations
 # http://ppoffice.github.io/hexo-theme-icarus/categories/Widgets/
 widgets:
@@ -269,27 +269,27 @@ widgets:
     # Recent posts widget configurations
     -
         # Where should the widget be placed, left sidebar or right sidebar
-        position: left
+        position: right
         type: recent_posts
     # Archives widget configurations
     -
         # Where should the widget be placed, left sidebar or right sidebar
-        position: left
+        position: right
         type: archives
     # Tags widget configurations
     -
         # Where should the widget be placed, left sidebar or right sidebar
-        position: left
+        position: right
         type: tags
     # Google FeedBurner email subscription widget configurations
-    -
-        # Where should the widget be placed, left sidebar or right sidebar
-        position: left
-        type: subscribe_email
-        # Hint text under the email input
-        description: 
-        # Feedburner ID
-        feedburner_id: ''
+    # -
+    #     # Where should the widget be placed, left sidebar or right sidebar
+    #     position: left
+    #     type: subscribe_email
+    #     # Hint text under the email input
+    #     description: 
+    #     # Feedburner ID
+    #     feedburner_id: ''
     # Google AdSense unit configurations
     # -
     #     # Where should the widget be placed, left sidebar or right sidebar
@@ -356,7 +356,7 @@ plugins:
     katex: false
     # Enable the MathJax math typesetting support
     # https://www.mathjax.org/
-    mathjax: false
+    mathjax: true
     # Enable the Outdated Browser plugin
     # http://outdatedbrowser.com/
     outdated_browser: false
@@ -376,10 +376,10 @@ plugins:
         pixel_id: 
 # CDN provider settings
 # https://ppoffice.github.io/hexo-theme-icarus/Configuration/Theme/speed-up-your-site-with-custom-cdn/
-providers:
-    # Name or URL template of the JavaScript and/or stylesheet CDN provider
-    cdn: jsdelivr
-    # Name or URL template of the webfont CDN provider
-    fontcdn: google
-    # Name or URL of the fontawesome icon font CDN provider
-    iconcdn: fontawesome
+# providers:
+    # # Name or URL template of the JavaScript and/or stylesheet CDN provider
+    # cdn: jsdelivr
+    # # Name or URL template of the webfont CDN provider
+    # fontcdn: google
+    # # Name or URL of the fontawesome icon font CDN provider
+    # iconcdn: fontawesome
