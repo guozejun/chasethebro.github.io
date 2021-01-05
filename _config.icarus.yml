@@ -147,9 +147,11 @@ search:
 # Comment plugin configurations
 # https://ppoffice.github.io/hexo-theme-icarus/categories/Plugins/Comment/
 comment:
-    type: disqus
-    # Disqus shortname
-    shortname: 'leslieblog'
+    type: utterances
+    repo: ChaseTheBro/chasethebro.github.io
+    issue_term: url
+    label: 💬
+    theme: github-light
 # Donate plugin configurations
 # https://ppoffice.github.io/hexo-theme-icarus/categories/Plugins/Donation/
 # donates:

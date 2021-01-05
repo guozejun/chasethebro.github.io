@@ -1,11 +1,11 @@
 ---
-title: C#关键字
+title: C# 关键字
 toc: true
 date: 2020-12-01 11:32:50
-tags: [C#]
+tags: [CSharp]
 categories:
     - 编程语言
-    - C#
+    - C Sharp
 ---
 
 ## 修饰符

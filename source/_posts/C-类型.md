@@ -1,11 +1,11 @@
 ---
-title: C#类型
+title: C# 类型
 toc: true
 date: 2020-11-28 03:12:23
-tags: [C#]
+tags: [CSharp]
 categories:
     - 编程语言
-    - C#
+    - C Sharp
 ---
 
 ## 值类型
