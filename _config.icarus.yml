@@ -12,28 +12,28 @@ head:
     # https://developer.mozilla.org/en-US/docs/Web/Manifest
     manifest:
         # Name of the web application (default to the site title)
-        name: 
+        name: "Leslie's Tech Wiki"
         # The displayed name of the web application
         # when there is not enough space to display full name
-        short_name: 
+        short_name: "LTW"
         # The start URL of the web application
-        start_url: 
+        # start_url: "https://chasethebro.github.io/"
         # The default theme color for the application
-        theme_color: 
+        theme_color: "red"
         # A placeholder background color for the application page to display
         # before its stylesheet is loaded
-        background_color: 
+        background_color: "white"
         # The preferred display mode for the website
         display: standalone
         # Image files that can serve as application icons for different contexts
         icons:
             -
                 # The path to the image file
-                src: ''
+                src: /img/icons8-super-mario.svg
                 # A string containing space-separated image dimensions
-                sizes: ''
-                # A hint as to the media type of the image
-                type: 
+                sizes: '72x72'
+                # # A hint as to the media type of the image
+                # type: 
     # Open Graph metadata
     # https://hexo.io/docs/helpers.html#open-graph
     open_graph:
@@ -103,7 +103,7 @@ navbar:
         Archives: /archives
         Categories: /categories
         Tags: /tags
-        About: /about
+        # About: /about
     # Links to be shown on the right of the navigation bar
     links:
         Chase The Bro:
@@ -312,7 +312,7 @@ plugins:
     # https://tongji.baidu.com
     baidu_analytics:
         # Baidu Analytics tracking ID
-        tracking_id: 
+        tracking_id: b2d618410624732265a9a52a938c84ff
     # Bing Webmaster Tools plugin settings
     # https://www.bing.com/toolbox/webmaster/
     bing_webmaster:
@@ -347,7 +347,7 @@ plugins:
     # https://analytics.google.com
     google_analytics:
         # Google Analytics tracking ID
-        tracking_id: 
+        tracking_id: G-1V0RN73FVE
     # Hotjar user feedback plugin
     # https://www.hotjar.com/
     hotjar:
@@ -378,10 +378,10 @@ plugins:
         pixel_id: 
 # CDN provider settings
 # https://ppoffice.github.io/hexo-theme-icarus/Configuration/Theme/speed-up-your-site-with-custom-cdn/
-# providers:
-    # # Name or URL template of the JavaScript and/or stylesheet CDN provider
-    # cdn: jsdelivr
-    # # Name or URL template of the webfont CDN provider
-    # fontcdn: google
-    # # Name or URL of the fontawesome icon font CDN provider
-    # iconcdn: fontawesome
+providers:
+    # Name or URL template of the JavaScript and/or stylesheet CDN provider
+    cdn: jsdelivr
+    # Name or URL template of the webfont CDN provider
+    fontcdn: google
+    # Name or URL of the fontawesome icon font CDN provider
+    iconcdn: fontawesome
