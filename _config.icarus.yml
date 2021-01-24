@@ -3,11 +3,11 @@ version: 4.0.0
 # Icarus theme variant, can be "default" or "cyberpunk"
 variant: default
 # Path or URL to the website's logo
-logo: /img/Leslie.png
+logo: ""
 # Page metadata configurations
 head:
     # URL or path to the website's icon
-    favicon: /img/icons8-super-mario.svg
+    favicon: https://raw.githubusercontent.com/ChaseTheBro/MarkDown_Graph/master/blog/code.svg
     # Web application manifests configuration
     # https://developer.mozilla.org/en-US/docs/Web/Manifest
     manifest:
@@ -29,7 +29,7 @@ head:
         icons:
             -
                 # The path to the image file
-                src: /img/icons8-super-mario.svg
+                src: https://raw.githubusercontent.com/ChaseTheBro/MarkDown_Graph/master/blog/code.svg
                 # A string containing space-separated image dimensions
                 sizes: '72x72'
                 # # A hint as to the media type of the image
@@ -219,7 +219,7 @@ widgets:
         # Author's current location
         location: Hangzhou, China
         # URL or path to the avatar image
-        avatar: /img/L.png
+        avatar: https://raw.githubusercontent.com/ChaseTheBro/MarkDown_Graph/master/blog/eren.jpg
         # Whether show the rounded avatar image
         avatar_rounded: false
         # Email address for the Gravatar
@@ -384,4 +384,4 @@ providers:
     # Name or URL template of the webfont CDN provider
     fontcdn: loli
     # Name or URL of the fontawesome icon font CDN provider
-    iconcdn: fontawesome
+    iconcdn: loli
