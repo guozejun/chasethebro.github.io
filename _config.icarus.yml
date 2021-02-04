@@ -219,7 +219,7 @@ widgets:
         # Author's current location
         location: Hangzhou, China
         # URL or path to the avatar image
-        avatar: https://raw.githubusercontent.com/ChaseTheBro/MarkDown_Graph/master/blog/eren.jpg
+        avatar: https://raw.githubusercontent.com/ChaseTheBro/MarkDown_Graph/master/blog/favicon256.jpg
         # Whether show the rounded avatar image
         avatar_rounded: false
         # Email address for the Gravatar
