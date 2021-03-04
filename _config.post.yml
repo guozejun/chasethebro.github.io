@@ -9,6 +9,3 @@ widgets:
         collapsed: true
         # Maximum level of headings to show (1-6)
         depth: 3
-    -
-        type: tags
-        position: left

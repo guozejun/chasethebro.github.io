@@ -3,6 +3,7 @@ title: 关系数据库设计
 tag: [数据库]
 abstract: 数据库第7、8章复习提纲
 date: 2020-05-10 21:24:50
+toc: true
 categories:
     - 数据库
 ---
@@ -14,6 +15,8 @@ categories:
 #### 实体集&联系集
 
 实体-联系（entity-relationship，E-R）。实体表示现实世界中可区别于所有其他对象的的一个“事物”或“对象”。每个实体有一组性质，其中一些性质的值可以唯一的标示一个实体。实体集（entity set）是具有相同类型的一个实体集合。外延（extension）指属于实体集的实体的实际的集合。实体通过一组属性（attribution）来表示，每个属性有一个值（value）。
+
+<!-- more -->
 
 联系（relationship）指多个实体间的相互关联。联系集（relationship set）是相同类型联系的集合。实体集之间的关联称为参与（participation）。
 

@@ -1,6 +1,7 @@
 ---
 title: B+-trees
 date: 2019-05-18 20:43:48
+toc: true
 tags: [数据结构]
 abstract: The review of B+-tree, which disturbs me for a long time.
 categories:
@@ -9,6 +10,8 @@ categories:
 ## What is a **B+**-tree
 
 Most queries can be executed more quickly if the values are stored in order. But it's not practical to hope to store all the rows in the table one after another, in sorted order, because this requires rewriting the entire table with each insertion or deletion of a row.
+
+<!-- more -->
 
 This leads us to instead imagine storing our rows in a tree structure. Our first instinct would be a balanced binary search tree like a red-black tree, but this really doesn't make much sense for a database since it is stored on disk. You see, disks work by reading and writing whole blocks of data at once — typically 512 bytes or four kilobytes. A node of a binary search tree uses a small fraction of that, so it makes sense to look for a structure that fits more neatly into a disk block.
 

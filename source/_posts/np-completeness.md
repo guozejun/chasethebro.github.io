@@ -1,14 +1,18 @@
 ---
 title: NP-completeness
 abstract: In computational complexity theory, a problem is NP-complete when it can be solved by a restricted class of brute force search algorithms and it can be used to simulate any other problem with a similar algorithm.
+toc: true
 date: 2019-05-11 20:14:58
 tags: [数据结构]
 categories:
     - 数据结构
 ---
+
 ## NP, P, NP-complete and NP-Hard
 
 To solve the problem of NP-completeness. Firstly, we need to figure out what is NP, P, NP-complete and NP-Hard.
+
+<!-- more -->
 
 ### P
 

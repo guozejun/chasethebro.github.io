@@ -14,6 +14,9 @@ mv -r folder1 folder2
 git add .
 git commit "..."
 ```
+
+<!-- more -->
+
 这样会存在一个很大的问题，那就是这整个文件夹中的git历史信息删除掉了。正确的做法应该是：
 
 - 文件夹

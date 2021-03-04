@@ -19,6 +19,8 @@ categories:
 - internal
 - private
 
+<!-- more -->
+
 可以定义六个可访问性级别
 
 | 声明的可访问性     | 访问范围                               |

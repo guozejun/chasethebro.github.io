@@ -215,7 +215,7 @@ widgets:
         # Author name
         author: Leslie
         # Author title
-        author_title: Game Developer
+        author_title: OS Developer
         # Author's current location
         location: Hangzhou, China
         # URL or path to the avatar image
@@ -305,7 +305,7 @@ widgets:
 # https://ppoffice.github.io/hexo-theme-icarus/categories/Plugins/
 plugins:
     # Enable page startup animations
-    animejs: true
+    animejs: false
     # Show the "back to top" button
     back_to_top: true
     # Baidu Analytics plugin settings
