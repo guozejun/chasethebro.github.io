@@ -108,14 +108,14 @@ navbar:
     links:
         Chase The Bro:
             icon: fab fa-github
-            url: 'https://github.com/ChaseTheBro'
+            url: 'https://github.com/guozejun'
 # Page footer configurations
 footer:
     # Links to be shown on the right of the footer section
     links:
         Chase The Bro:
             icon: fab fa-github
-            url: 'https://github.com/ChaseTheBro'
+            url: 'https://github.com/guozejun'
 # Article related configurations
 article:
     # Code highlight settings
@@ -148,7 +148,7 @@ search:
 # https://ppoffice.github.io/hexo-theme-icarus/categories/Plugins/Comment/
 comment:
     type: utterances
-    repo: ChaseTheBro/chasethebro.github.io
+    repo: guozejun/chasethebro.github.io
     issue_term: url
     label: 💬
     theme: github-light
@@ -219,13 +219,13 @@ widgets:
         # Author's current location
         location: Hangzhou, China
         # URL or path to the avatar image
-        avatar: https://raw.githubusercontent.com/ChaseTheBro/MarkDown_Graph/master/blog/favicon256.jpg
+        avatar: https://raw.githubusercontent.com/guozejun/MarkDown_Graph/master/blog/favicon256.jpg
         # Whether show the rounded avatar image
         avatar_rounded: false
         # Email address for the Gravatar
         gravatar: 
         # URL or path for the follow button
-        follow_link: 'https://github.com/ChaseTheBro'
+        follow_link: 'https://github.com/guozejun'
         # Links to be shown on the bottom of the profile widget
         # social_links:
         #     Github:

@@ -64,5 +64,5 @@ theme: icarus
 deploy:
   type: git
   repo:
-    github: 'https://github.com/ChaseTheBro/chasethebro.github.io.git'
+    github: 'https://github.com/guozejun/chasethebro.github.io'
   branch: master
