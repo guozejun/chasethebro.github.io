@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>B+-trees - Leslie&#039;s Tech Wiki</title><link rel="manifest" href="/manifest.json"><meta name="theme-color" content="red"><meta name="application-name" content="Leslie&#039;s Tech Wiki"><meta name="msapplication-TileColor" content="red"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Leslie&#039;s Tech Wiki"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta description="What is a B+-treeMost queries can be executed more quickly if the values are stored in order. But it’s not practical to hope to store all the rows in the table one after another, in sorted order, beca"><meta property="og:type" content="blog"><meta property="og:title" content="B+-trees"><meta property="og:url" content="https://chasethebro.github.io/2019/05/18/bplus-trees/"><meta property="og:site_name" content="Leslie&#039;s Tech Wiki"><meta property="og:description" content="What is a B+-treeMost queries can be executed more quickly if the values are stored in order. But it’s not practical to hope to store all the rows in the table one after another, in sorted order, beca"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://chasethebro.github.io/2019/05/18/bplus-trees/bplustree-0.png"><meta property="og:image" content="https://chasethebro.github.io/2019/05/18/bplus-trees/bplustree-1.png"><meta property="og:image" content="https://chasethebro.github.io/2019/05/18/bplus-trees/insert9.png"><meta property="og:image" content="https://chasethebro.github.io/2019/05/18/bplus-trees/insert10.png"><meta property="og:image" content="https://chasethebro.github.io/2019/05/18/bplus-trees/insert8.png"><meta property="og:image" content="https://chasethebro.github.io/2019/05/18/bplus-trees/delete23.png"><meta property="og:image" content="https://chasethebro.github.io/2019/05/18/bplus-trees/delete19.png"><meta property="article:published_time" content="2019-05-18T12:43:48.000Z"><meta property="article:modified_time" content="2021-09-24T08:50:53.125Z"><meta property="article:author" content="Leslie"><meta property="article:tag" content="数据结构"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/2019/05/18/bplus-trees/bplustree-0.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://chasethebro.github.io/2019/05/18/bplus-trees/"},"headline":"Leslie's Tech Wiki","image":["https://chasethebro.github.io/2019/05/18/bplus-trees/bplustree-0.png","https://chasethebro.github.io/2019/05/18/bplus-trees/bplustree-1.png","https://chasethebro.github.io/2019/05/18/bplus-trees/insert9.png","https://chasethebro.github.io/2019/05/18/bplus-trees/insert10.png","https://chasethebro.github.io/2019/05/18/bplus-trees/insert8.png","https://chasethebro.github.io/2019/05/18/bplus-trees/delete23.png","https://chasethebro.github.io/2019/05/18/bplus-trees/delete19.png"],"datePublished":"2019-05-18T12:43:48.000Z","dateModified":"2021-09-24T08:50:53.125Z","author":{"@type":"Person","name":"Leslie"},"description":"What is a B+-treeMost queries can be executed more quickly if the values are stored in order. But it’s not practical to hope to store all the rows in the table one after another, in sorted order, beca"}</script><link rel="canonical" href="https://chasethebro.github.io/2019/05/18/bplus-trees/"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><!--!--><script>var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?b2d618410624732265a9a52a938c84ff";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();</script><!--!--><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/cookieconsent/3.1.1/cookieconsent.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/css/justifiedGallery.min.css"><script src="https://www.googletagmanager.com/gtag/js?id=G-1V0RN73FVE" async></script><script>window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+    
+        gtag('config', 'G-1V0RN73FVE');</script><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/pace/1.0.2/pace.min.js"></script><!--!--><!--!--><meta name="generator" content="Hexo 5.2.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/">Leslie&#039;s Tech Wiki</a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Chase The Bro" href="https://github.com/guozejun"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2019-05-18T12:43:48.000Z" title="2019-05-18T12:43:48.000Z">2019-05-18</time>发表</span><span class="level-item"><time dateTime="2021-09-24T08:50:53.125Z" title="2021-09-24T08:50:53.125Z">2021-09-24</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></span><span class="level-item">6 分钟读完 (大约895个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">B+-trees</h1><div class="content"><h2 id="What-is-a-B-tree"><a href="#What-is-a-B-tree" class="headerlink" title="What is a B+-tree"></a>What is a <strong>B+</strong>-tree</h2><p>Most queries can be executed more quickly if the values are stored in order. But it’s not practical to hope to store all the rows in the table one after another, in sorted order, because this requires rewriting the entire table with each insertion or deletion of a row.</p>
+<a id="more"></a>
+
+<p>This leads us to instead imagine storing our rows in a tree structure. Our first instinct would be a balanced binary search tree like a red-black tree, but this really doesn’t make much sense for a database since it is stored on disk. You see, disks work by reading and writing whole blocks of data at once — typically 512 bytes or four kilobytes. A node of a binary search tree uses a small fraction of that, so it makes sense to look for a structure that fits more neatly into a disk block.</p>
+<p>Hence the B+-tree, in which each node stores up to $d$ references to children and up to $d$ − 1 keys. Each reference is considered “between” two of the node’s keys; it references the root of a subtree for which all values are between these two keys.</p>
+<p>Here is a fairly small tree using 4 as our value for $d$.</p>
+<p><img src="/2019/05/18/bplus-trees/bplustree-0.png"></p>
+<p>A B+-tree requires that each leaf be the same distance from the root, as in this picture, where searching for any of the 11 values (all listed on the bottom level) will involve loading three nodes from the disk (the root block, a second-level block, and a leaf).</p>
+<p>In practice, d will be larger — as large, in fact, as it takes to fill a disk block. Suppose a block is 4KB, our keys are 4-byte integers, and each reference is a 6-byte file offset. Then we’d choose d to be the largest value so that 4 (d − 1) + 6 d ≤ 4096; solving this inequality for d, we end up with d ≤ 410, so we’d use 410 for d. As you can see, d can be large.</p>
+<p>A B+-tree maintains the following invariants:</p>
+<ul>
+<li><p>Every node has one more references than it has keys.</p>
+</li>
+<li><p>All leaves are at the same distance from the root.</p>
+</li>
+<li><p>For every non-leaf node $N$ with $k$ being the number of keys in $N$: all keys in the first child’s subtree are less than $N’s$ first key; and all keys in the ith child’s subtree (2 ≤ $i$ ≤ $k$) are between the ($i$ − 1)th key of n and the ith key of n.</p>
+</li>
+<li><p>The root has at least two children.</p>
+</li>
+<li><p>Every non-leaf, non-root node has at least $\lceil d / 2 \rceil$ children.</p>
+</li>
+<li><p>Each leaf contains at least $\lceil d / 2 \rceil$ keys.</p>
+</li>
+<li><p>Every key from the table appears in a leaf, in left-to-right sorted order.</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Node Type</th>
+<th>Children Type</th>
+<th>Min Number of Children</th>
+<th>Max Number of Children</th>
+<th>Example<br>($b$ = 7)</th>
+<th>Example<br>($b$ = 100)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Root Node (when it is the only node in the tree)</td>
+<td>Records</td>
+<td>1</td>
+<td>$d$ - 1</td>
+<td>1-6</td>
+<td>1–99</td>
+</tr>
+<tr>
+<td>Root Node</td>
+<td>Internal Nodes or Leaf Nodes</td>
+<td>2</td>
+<td>$d$</td>
+<td>2–7</td>
+<td>2–100</td>
+</tr>
+<tr>
+<td>Internal Node</td>
+<td>Internal Nodes or Leaf Nodes</td>
+<td>$\lceil d / 2 \rceil$</td>
+<td>$d$</td>
+<td>4–7</td>
+<td>50–100</td>
+</tr>
+<tr>
+<td>Leaf Node</td>
+<td>Records</td>
+<td>$\lceil d / 2 \rceil$</td>
+<td>$d$</td>
+<td>4–7</td>
+<td>50–100</td>
+</tr>
+</tbody></table>
+<h2 id="Insertion"><a href="#Insertion" class="headerlink" title="Insertion"></a>Insertion</h2><p>Descend to the leaf where the key fits.</p>
+<ul>
+<li> If the node has an empty space, insert the key/reference pair into the node.</li>
+<li> If the node is already full, split it into two nodes, distributing the keys evenly between the two nodes. If the node is a leaf, take a copy of the minimum value in the second of these two nodes and repeat this insertion algorithm to insert it into the parent node. If the node is a non-leaf, exclude the middle value during the split and repeat this insertion algorithm to insert this excluded value into the parent node.</li>
+</ul>
+<h2 id="Deletion"><a href="#Deletion" class="headerlink" title="Deletion"></a>Deletion</h2><p>Descend to the leaf where the key exists.</p>
+<ul>
+<li> Remove the required key and associated reference from the node.</li>
+<li> If the node still has enough keys and references to satisfy the invariants, stop.</li>
+<li> If the node has too few keys to satisfy the invariants, but its next oldest or next youngest sibling at the same level has more than necessary, distribute the keys between this node and the neighbor. Repair the keys in the level above to represent that these nodes now have a different “split point” between them; this involves simply changing a key in the levels above, without deletion or insertion.</li>
+<li> If the node has too few keys to satisfy the invariant, and the next oldest or next youngest sibling is at the minimum for the invariant, then merge the node with its sibling; if the node is a non-leaf, we will need to incorporate the “split key” from the parent into our merging. In either case, we will need to repeat the removal algorithm on the parent node to remove the “split key” that previously separated these merged nodes — unless the parent is the root and we are removing the final key from the root, in which case the merged node becomes the new root (and the tree has become one level shorter than before).</li>
+</ul>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p><strong>Initial:</strong></p>
+<p><img src="/2019/05/18/bplus-trees/bplustree-1.png"></p>
+<p><strong>Insert 9:</strong></p>
+<p><img src="/2019/05/18/bplus-trees/insert9.png"></p>
+<p><strong>Insert 10:</strong></p>
+<p><img src="/2019/05/18/bplus-trees/insert10.png"></p>
+<p><strong>Insert 8:</strong></p>
+<p><img src="/2019/05/18/bplus-trees/insert8.png"></p>
+<p><strong>Delete 23:</strong></p>
+<p><img src="/2019/05/18/bplus-trees/delete23.png"></p>
+<p><strong>Delete 19:</strong></p>
+<p><img src="/2019/05/18/bplus-trees/delete19.png"></p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>B+-trees</p><p><a href="https://chasethebro.github.io/2019/05/18/bplus-trees/">https://chasethebro.github.io/2019/05/18/bplus-trees/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Leslie</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2019-05-18</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2021-09-24</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a class="icon" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a><a class="icon" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2020/05/10/db_design/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">关系数据库设计</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2019/05/15/approximation/"><span class="level-item">Approximation</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><script src="https://utteranc.es/client.js" repo="guozejun/chasethebro.github.io" issue-term="url" label="💬" theme="github-light" crossorigin="anonymous" async></script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#What-is-a-B-tree"><span class="level-left"><span class="level-item">1</span><span class="level-item">What is a B+-tree</span></span></a></li><li><a class="level is-mobile" href="#Insertion"><span class="level-left"><span class="level-item">2</span><span class="level-item">Insertion</span></span></a></li><li><a class="level is-mobile" href="#Deletion"><span class="level-left"><span class="level-item">3</span><span class="level-item">Deletion</span></span></a></li><li><a class="level is-mobile" href="#Example"><span class="level-left"><span class="level-item">4</span><span class="level-item">Example</span></span></a></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/">Leslie&#039;s Tech Wiki</a><p class="is-size-7"><span>&copy; 2021 Leslie</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Chase The Bro" href="https://github.com/guozejun"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdnjs.loli.net/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" async></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/cookieconsent/3.1.1/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/js/lightgallery.min.js" defer></script><script src="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdnjs.loli.net/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

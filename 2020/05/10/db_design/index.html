@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>关系数据库设计 - Leslie&#039;s Tech Wiki</title><link rel="manifest" href="/manifest.json"><meta name="theme-color" content="red"><meta name="application-name" content="Leslie&#039;s Tech Wiki"><meta name="msapplication-TileColor" content="red"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Leslie&#039;s Tech Wiki"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta description="数据库设计与E-R模型实体-联系模型实体集&amp;amp;联系集实体-联系（entity-relationship，E-R）。实体表示现实世界中可区别于所有其他对象的的一个“事物”或“对象”。每个实体有一组性质，其中一些性质的值可以唯一的标示一个实体。实体集（entity set）是具有相同类型的一个实体集合。外延（extension）指属于实体集的实体的实际的集合。实体通过一组属性（attributi"><meta property="og:type" content="blog"><meta property="og:title" content="关系数据库设计"><meta property="og:url" content="https://chasethebro.github.io/2020/05/10/db_design/"><meta property="og:site_name" content="Leslie&#039;s Tech Wiki"><meta property="og:description" content="数据库设计与E-R模型实体-联系模型实体集&amp;amp;联系集实体-联系（entity-relationship，E-R）。实体表示现实世界中可区别于所有其他对象的的一个“事物”或“对象”。每个实体有一组性质，其中一些性质的值可以唯一的标示一个实体。实体集（entity set）是具有相同类型的一个实体集合。外延（extension）指属于实体集的实体的实际的集合。实体通过一组属性（attributi"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://chasethebro.github.io/img/og_image.png"><meta property="article:published_time" content="2020-05-10T13:24:50.000Z"><meta property="article:modified_time" content="2021-09-24T08:50:53.125Z"><meta property="article:author" content="Leslie"><meta property="article:tag" content="数据库"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://chasethebro.github.io/2020/05/10/db_design/"},"headline":"Leslie's Tech Wiki","image":["https://chasethebro.github.io/img/og_image.png"],"datePublished":"2020-05-10T13:24:50.000Z","dateModified":"2021-09-24T08:50:53.125Z","author":{"@type":"Person","name":"Leslie"},"description":"数据库设计与E-R模型实体-联系模型实体集&amp;联系集实体-联系（entity-relationship，E-R）。实体表示现实世界中可区别于所有其他对象的的一个“事物”或“对象”。每个实体有一组性质，其中一些性质的值可以唯一的标示一个实体。实体集（entity set）是具有相同类型的一个实体集合。外延（extension）指属于实体集的实体的实际的集合。实体通过一组属性（attributi"}</script><link rel="canonical" href="https://chasethebro.github.io/2020/05/10/db_design/"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><!--!--><script>var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?b2d618410624732265a9a52a938c84ff";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();</script><!--!--><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/cookieconsent/3.1.1/cookieconsent.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/css/justifiedGallery.min.css"><script src="https://www.googletagmanager.com/gtag/js?id=G-1V0RN73FVE" async></script><script>window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+    
+        gtag('config', 'G-1V0RN73FVE');</script><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/pace/1.0.2/pace.min.js"></script><!--!--><!--!--><meta name="generator" content="Hexo 5.2.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/">Leslie&#039;s Tech Wiki</a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Chase The Bro" href="https://github.com/guozejun"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2020-05-10T13:24:50.000Z" title="2020-05-10T13:24:50.000Z">2020-05-10</time>发表</span><span class="level-item"><time dateTime="2021-09-24T08:50:53.125Z" title="2021-09-24T08:50:53.125Z">2021-09-24</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></span><span class="level-item">13 分钟读完 (大约2001个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">关系数据库设计</h1><div class="content"><h2 id="数据库设计与E-R模型"><a href="#数据库设计与E-R模型" class="headerlink" title="数据库设计与E-R模型"></a>数据库设计与E-R模型</h2><h3 id="实体-联系模型"><a href="#实体-联系模型" class="headerlink" title="实体-联系模型"></a>实体-联系模型</h3><h4 id="实体集-amp-联系集"><a href="#实体集-amp-联系集" class="headerlink" title="实体集&amp;联系集"></a>实体集&amp;联系集</h4><p>实体-联系（entity-relationship，E-R）。实体表示现实世界中可区别于所有其他对象的的一个“事物”或“对象”。每个实体有一组性质，其中一些性质的值可以唯一的标示一个实体。实体集（entity set）是具有相同类型的一个实体集合。外延（extension）指属于实体集的实体的实际的集合。实体通过一组属性（attribution）来表示，每个属性有一个值（value）。</p>
+<a id="more"></a>
+
+<p>联系（relationship）指多个实体间的相互关联。联系集（relationship set）是相同类型联系的集合。实体集之间的关联称为参与（participation）。</p>
+<h4 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h4><p>每个属性都有一个可以取值的范围称为该属性的域（domain）。属性可以如下划分：</p>
+<ul>
+<li>简单（simple）和复合（composite）属性</li>
+<li>单值（single-valued）和多值（multiple-valued）属性</li>
+<li>派生（derived）属性</li>
+</ul>
+<h3 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h3><h4 id="映射基数（mapping-cardinality）"><a href="#映射基数（mapping-cardinality）" class="headerlink" title="映射基数（mapping cardinality）"></a>映射基数（mapping cardinality）</h4><p>对于二元关系，映射基数必然是以下情况</p>
+<ul>
+<li>一对一（one-to-one）</li>
+<li>一对多（one-to-many）</li>
+<li>多对一（many-to-one）</li>
+<li>多对多（many-to-many）</li>
+</ul>
+<h4 id="参与约束"><a href="#参与约束" class="headerlink" title="参与约束"></a>参与约束</h4><p>实体集（E），联系集（R）。E中的每个实体都参与到R的至少一个联系中，E到R的参与称为全部（total）。如果只有部分参与，称为部分（partial）。</p>
+<h4 id="码"><a href="#码" class="headerlink" title="码"></a>码</h4><p>R是一个涉及实体集$E_1, E_2, …, E_n$的联系集。$primary-key(E_i)$代表$E_i$的主码。R的主码构成依赖于同R关联的属性的集合。</p>
+<p>如果R没有属性与之关联<br>$$<br>primary-key(E_1) \cup primary-key(E_2) \cup … \cup primary-key(E_n)<br>$$<br>描述了R中的一个联系</p>
+<p>如果R有属性$a_1, a_2, …, a_m$与之关联<br>$$<br>primary-key(E_1) \cup primary-key(E_2) \cup … \cup primary-key(E_n) \cup {a_1, a_2, …, a_m}<br>$$<br>描述了R中的一个联系</p>
+<p>在上述关系中<br>$$<br>primary-key(E_1) \cup primary-key(E_2) \cup … \cup primary-key(E_n)<br>$$<br>是R的一个超码</p>
+<h3 id="从实体集中删除冗余属性"><a href="#从实体集中删除冗余属性" class="headerlink" title="从实体集中删除冗余属性"></a>从实体集中删除冗余属性</h3><p>当一个属性A在两个实体集中都出现时，若A是$E_1$的主码，而在$E_2$中出现，但不构成主码。那么A应该从$E_2$中移除。</p>
+<h3 id="实体联系图"><a href="#实体联系图" class="headerlink" title="实体联系图"></a>实体联系图</h3><h4 id="基本结构"><a href="#基本结构" class="headerlink" title="基本结构"></a>基本结构</h4><ul>
+<li>分成两部分的矩形代表实体集</li>
+<li>棱形代表联系集</li>
+<li>未分割的矩形代表联系集的属性，主码带下划线</li>
+<li>线段将实体集连接到联系集</li>
+<li>虚线将联系集属性连接到联系集</li>
+<li>双线表示一个实体集全部的参与到联系集中</li>
+<li>双菱形代表连接到弱实体集的标志性联系集</li>
+</ul>
+<h4 id="映射基数"><a href="#映射基数" class="headerlink" title="映射基数"></a>映射基数</h4><ul>
+<li>一对一：两侧各画一个箭头</li>
+<li>一对多：画箭头到一的实体集，线段到多的实体集</li>
+<li>多对一：同理</li>
+<li>多对多：两侧都画线段</li>
+</ul>
+<p>实体集和二元联系集之间的一条边可以有一个关联最大和最小的映射基数，用l..h表示。最大值为*代表没有限制。</p>
+<h4 id="复杂属性"><a href="#复杂属性" class="headerlink" title="复杂属性"></a>复杂属性</h4><ul>
+<li>缩进表示复合属性</li>
+<li>“{example-attribute}”表示多值属性</li>
+<li>“example-attribute”表示派生属性</li>
+</ul>
+<h4 id="角色"><a href="#角色" class="headerlink" title="角色"></a>角色</h4><p>在矩形与棱形之间的连线上进行标注来表示角色</p>
+<h4 id="非二元的实体联系集"><a href="#非二元的实体联系集" class="headerlink" title="非二元的实体联系集"></a>非二元的实体联系集</h4><p>在非二元的联系集中，我们最多只允许一个箭头。</p>
+<h4 id="弱实体集"><a href="#弱实体集" class="headerlink" title="弱实体集"></a>弱实体集</h4><p>没有足够的属性构成主码的实体集是弱实体集（weak entity set）。弱实体集必须与另一个属主实体集（owner entity set）关联才有意义。这个关系称为存在依赖（existence dependent）。该联系称为标示性联系（identify relationship）。标示性联系是弱实体集到标示实体集的多对一的关系，而且弱实体集的参与是全部的，标示性联系集不应该有任何描述性属性。弱实体集的主码由标示性实体集的主码加上分辨符组成。</p>
+<ul>
+<li>分辨符用虚下划线表示</li>
+<li>联系集用双菱形表示</li>
+</ul>
+<h2 id="关系数据库设计"><a href="#关系数据库设计" class="headerlink" title="关系数据库设计"></a>关系数据库设计</h2><h3 id="原子域与第一范式"><a href="#原子域与第一范式" class="headerlink" title="原子域与第一范式"></a>原子域与第一范式</h3><p>一个域是原子的（atomic），如果该域的元素被认为是不可分的单元。R是第一范式（First Normal Form， 1NF），如果R中所有属性的域都是原子的。</p>
+<h3 id="使用函数依赖进行分解"><a href="#使用函数依赖进行分解" class="headerlink" title="使用函数依赖进行分解"></a>使用函数依赖进行分解</h3><ul>
+<li>使用希腊字母表示属性集（e.g. $\alpha$）。小写罗马字母后跟用圆括号括住的大写字母来表示关系模式（e.g. $r(R)$）</li>
+<li>属性集是超码时用，用$K$表示</li>
+<li>对关系使用小写名称</li>
+</ul>
+<h4 id="码和函数依赖"><a href="#码和函数依赖" class="headerlink" title="码和函数依赖"></a>码和函数依赖</h4><p>一个关系的满足现实世界约束的实例，成为关系的合法实例（legal instance）。</p>
+<p>令$r(R)$是一个关系模式。在关系$r(R)$的任何合法实例中，对于$r$的实例中的所有元组对$t_1$和$t_2$总满足，若$t_1 \neq t_2$，则$t_1[K] \neq t_2[K]$。</p>
+<p>有$r(R)$，$\alpha \subseteq R$且$\beta \subseteq R$</p>
+<ul>
+<li>给定一个实例，满足函数依赖$\alpha \rightarrow \beta$的条件是：对于所有元组对$t_1$和$t_2$，若$t_1[\alpha]=t_2[\alpha]$，则$t_1[\beta]=t_2[\beta]$</li>
+<li>若所有合法实例都满足函数依赖$\alpha \rightarrow \beta$，该函数依赖在$r(R)$上成立</li>
+</ul>
+<p>有以下两种方式使用函数依赖</p>
+<ul>
+<li>判定关系的实例是否满足给定函数一俩集$F$</li>
+<li>说明合法关系上的约束</li>
+</ul>
+<p>如果函数依赖在所有的关系中都满足，那么就称该函数关系是平凡（trival）的。给定关系$r(R)$上成立的函数依赖集$F$。使用$F^+$表示$F$集合的闭包（closure）。</p>
+<h4 id="Boyce-Codd-Normal-Form"><a href="#Boyce-Codd-Normal-Form" class="headerlink" title="Boyce-Codd Normal Form"></a>Boyce-Codd Normal Form</h4><p>具有函数依赖集$F$的关系模式$R$属于BCNF的条件是，对$F^+$中所有的函数依赖$\alpha \rightarrow \beta$</p>
+<ul>
+<li>函数依赖$\alpha \rightarrow \beta$是平凡的</li>
+<li>$\alpha$是$R$的一个超码</li>
+</ul>
+<p>设$R$为不属于BCNF的一个模式，存在非平凡的函数依赖$\alpha \rightarrow \beta$。用以下两个模式取代$R$</p>
+<ul>
+<li>$(\alpha \cup \beta)$</li>
+<li>$(R - (\beta - \alpha))$</li>
+</ul>
+<h4 id="第三范式"><a href="#第三范式" class="headerlink" title="第三范式"></a>第三范式</h4><p>具有函数依赖集$F$的关系模式$R$属于3NF的条件是，对$F^+$中所有的函数依赖$\alpha \rightarrow \beta$</p>
+<ul>
+<li>$\alpha \rightarrow \beta$是一个平凡的函数依赖</li>
+<li>$\alpha$是$R$的一个超码</li>
+<li>$\beta - \alpha$中每个属性$A$都包含在$R$的一个候选码中</li>
+</ul>
+<h3 id="函数依赖理论"><a href="#函数依赖理论" class="headerlink" title="函数依赖理论"></a>函数依赖理论</h3><h4 id="函数依赖的闭包"><a href="#函数依赖的闭包" class="headerlink" title="函数依赖的闭包"></a>函数依赖的闭包</h4><p>如果$R$中每一个满足$F$的实例也满足$f$，则$R$上的函数依赖$f$被$r$上的函数依赖集$F$逻辑蕴含（logically imply）。用大写罗马字母表示单个属性，$\alpha\beta$表示$\alpha \cup \beta$。使用<strong>Armstrong’s axiom</strong>寻找逻辑蕴含的函数依赖。</p>
+<ul>
+<li>自反律（reflexivity rule）。若$\beta \subseteq \alpha$，则$\alpha \rightarrow \beta$</li>
+<li>增补律（augmentation rule）。若$\alpha \rightarrow \beta$，则$\alpha\gamma \rightarrow \beta\gamma$</li>
+<li>传递律（transitivity rule）。若$\alpha \rightarrow \beta$且$\beta \rightarrow \gamma$，则$\alpha \rightarrow \gamma$</li>
+</ul>
+<p>通过<strong>Armstrong’s axiom</strong>可以推出</p>
+<ul>
+<li>合并律（union rule）。若$\alpha \rightarrow \beta$且$\alpha \rightarrow \gamma$，则$\alpha \rightarrow \beta\gamma$</li>
+<li>分解率（decomposition rule），若$\alpha \rightarrow \beta\gamma$，则$\alpha \rightarrow \beta$且$\alpha \rightarrow \gamma$</li>
+<li>伪传递律（pseudotransitivity rule），$\alpha \rightarrow \beta$且$\beta\lambda \rightarrow \gamma$，则$\alpha\lambda \rightarrow \gamma$</li>
+</ul>
+<h4 id="属性的闭包"><a href="#属性的闭包" class="headerlink" title="属性的闭包"></a>属性的闭包</h4><p>如果$\alpha \rightarrow B$，称属性$B$被$\alpha$函数确定（functionally determine）。</p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>关系数据库设计</p><p><a href="https://chasethebro.github.io/2020/05/10/db_design/">https://chasethebro.github.io/2020/05/10/db_design/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Leslie</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2020-05-10</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2021-09-24</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a class="icon" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a><a class="icon" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2020/11/11/%E6%8E%A2%E7%A9%B6C-%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">探究C++迭代器失效问题</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2019/05/18/bplus-trees/"><span class="level-item">B+-trees</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><script src="https://utteranc.es/client.js" repo="guozejun/chasethebro.github.io" issue-term="url" label="💬" theme="github-light" crossorigin="anonymous" async></script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#数据库设计与E-R模型"><span class="level-left"><span class="level-item">1</span><span class="level-item">数据库设计与E-R模型</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#实体-联系模型"><span class="level-left"><span class="level-item">1.1</span><span class="level-item">实体-联系模型</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#实体集-amp-联系集"><span class="level-left"><span class="level-item">1.1.1</span><span class="level-item">实体集&amp;联系集</span></span></a></li><li><a class="level is-mobile" href="#属性"><span class="level-left"><span class="level-item">1.1.2</span><span class="level-item">属性</span></span></a></li></ul></li><li><a class="level is-mobile" href="#约束"><span class="level-left"><span class="level-item">1.2</span><span class="level-item">约束</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#映射基数（mapping-cardinality）"><span class="level-left"><span class="level-item">1.2.1</span><span class="level-item">映射基数（mapping cardinality）</span></span></a></li><li><a class="level is-mobile" href="#参与约束"><span class="level-left"><span class="level-item">1.2.2</span><span class="level-item">参与约束</span></span></a></li><li><a class="level is-mobile" href="#码"><span class="level-left"><span class="level-item">1.2.3</span><span class="level-item">码</span></span></a></li></ul></li><li><a class="level is-mobile" href="#从实体集中删除冗余属性"><span class="level-left"><span class="level-item">1.3</span><span class="level-item">从实体集中删除冗余属性</span></span></a></li><li><a class="level is-mobile" href="#实体联系图"><span class="level-left"><span class="level-item">1.4</span><span class="level-item">实体联系图</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#基本结构"><span class="level-left"><span class="level-item">1.4.1</span><span class="level-item">基本结构</span></span></a></li><li><a class="level is-mobile" href="#映射基数"><span class="level-left"><span class="level-item">1.4.2</span><span class="level-item">映射基数</span></span></a></li><li><a class="level is-mobile" href="#复杂属性"><span class="level-left"><span class="level-item">1.4.3</span><span class="level-item">复杂属性</span></span></a></li><li><a class="level is-mobile" href="#角色"><span class="level-left"><span class="level-item">1.4.4</span><span class="level-item">角色</span></span></a></li><li><a class="level is-mobile" href="#非二元的实体联系集"><span class="level-left"><span class="level-item">1.4.5</span><span class="level-item">非二元的实体联系集</span></span></a></li><li><a class="level is-mobile" href="#弱实体集"><span class="level-left"><span class="level-item">1.4.6</span><span class="level-item">弱实体集</span></span></a></li></ul></li></ul></li><li><a class="level is-mobile" href="#关系数据库设计"><span class="level-left"><span class="level-item">2</span><span class="level-item">关系数据库设计</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#原子域与第一范式"><span class="level-left"><span class="level-item">2.1</span><span class="level-item">原子域与第一范式</span></span></a></li><li><a class="level is-mobile" href="#使用函数依赖进行分解"><span class="level-left"><span class="level-item">2.2</span><span class="level-item">使用函数依赖进行分解</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#码和函数依赖"><span class="level-left"><span class="level-item">2.2.1</span><span class="level-item">码和函数依赖</span></span></a></li><li><a class="level is-mobile" href="#Boyce-Codd-Normal-Form"><span class="level-left"><span class="level-item">2.2.2</span><span class="level-item">Boyce-Codd Normal Form</span></span></a></li><li><a class="level is-mobile" href="#第三范式"><span class="level-left"><span class="level-item">2.2.3</span><span class="level-item">第三范式</span></span></a></li></ul></li><li><a class="level is-mobile" href="#函数依赖理论"><span class="level-left"><span class="level-item">2.3</span><span class="level-item">函数依赖理论</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#函数依赖的闭包"><span class="level-left"><span class="level-item">2.3.1</span><span class="level-item">函数依赖的闭包</span></span></a></li><li><a class="level is-mobile" href="#属性的闭包"><span class="level-left"><span class="level-item">2.3.2</span><span class="level-item">属性的闭包</span></span></a></li></ul></li></ul></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/">Leslie&#039;s Tech Wiki</a><p class="is-size-7"><span>&copy; 2021 Leslie</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Chase The Bro" href="https://github.com/guozejun"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdnjs.loli.net/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" async></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/cookieconsent/3.1.1/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/js/lightgallery.min.js" defer></script><script src="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdnjs.loli.net/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
