@@ -213,7 +213,7 @@ widgets:
         position: left
         type: profile
         # Author name
-        author: Leslie
+        author: Leslie Guo
         # Author title
         author_title: OS Developer
         # Author's current location
