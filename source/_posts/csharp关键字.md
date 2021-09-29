@@ -2,7 +2,7 @@
 title: C# 关键字
 toc: true
 date: 2020-12-01 11:32:50
-tags: [CSharp]
+tags: [C#]
 categories:
     - 编程语言
     - C Sharp
@@ -206,4 +206,4 @@ null、true、false和default
 
 ## 参考资料
 
-> - [C# 关键字](https://docs.microsoft.com/zh-cn/dotnet/csharp/language-reference/keywords/)
+> - [C# 关键字](https://docs.microsoft.com/zh-cn/dotnet/C#/language-reference/keywords/)

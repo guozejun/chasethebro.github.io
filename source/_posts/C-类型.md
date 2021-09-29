@@ -2,7 +2,7 @@
 title: C# 类型
 toc: true
 date: 2020-11-28 03:12:23
-tags: [CSharp]
+tags: [C#]
 categories:
     - 编程语言
     - C Sharp
@@ -163,7 +163,7 @@ Console.WriteLine(m);  // output: 1500000
 | ulong  | `float`、`double` 或 `decimal`                               |
 | float  | `double`                                                     |
 
-- 任何[整型数值类型](https://docs.microsoft.com/zh-cn/dotnet/csharp/language-reference/builtin-types/integral-numeric-types)都可以隐式转换为任何[浮点数值类型](https://docs.microsoft.com/zh-cn/dotnet/csharp/language-reference/builtin-types/floating-point-numeric-types)。
+- 任何[整型数值类型](https://docs.microsoft.com/zh-cn/dotnet/C#/language-reference/builtin-types/integral-numeric-types)都可以隐式转换为任何[浮点数值类型](https://docs.microsoft.com/zh-cn/dotnet/C#/language-reference/builtin-types/floating-point-numeric-types)。
 - 不存在针对 `byte` 和 `sbyte` 类型的隐式转换。 不存在从 `double` 和 `decimal` 类型的隐式转换。
 - `decimal` 类型和 `float` 或 `double` 类型之间不存在隐式转换。
 - 类型 `int` 的常量表达式的值（例如，由整数文本所表示的值）如果在目标类型的范围内，则可隐式转换为 `sbyte`、`byte`、`short`、`ushort`、`uint` 或 `ulong`。
@@ -359,7 +359,7 @@ C# 支持满足以下两个条件的元组类型之间的赋值：
 
 - 在括号内显式声明每个变量的类型：
 
-  ```csharp
+  ```C#
   var t = ("post office", 3.6);
   (string destination, double distance) = t;
   Console.WriteLine($"Distance to {destination} is {distance} kilometers.");
@@ -369,7 +369,7 @@ C# 支持满足以下两个条件的元组类型之间的赋值：
 
 - 在括号外使用 `var` 关键字来声明隐式类型化变量，并让编译器推断其类型：
 
-  ```csharp
+  ```C#
   var t = ("post office", 3.6);
   var (destination, distance) = t;
   Console.WriteLine($"Distance to {destination} is {distance} kilometers.");
@@ -379,7 +379,7 @@ C# 支持满足以下两个条件的元组类型之间的赋值：
 
 - 使用现有变量：
 
-  ```csharp
+  ```C#
   var destination = string.Empty;
   var distance = 0.0;
   
@@ -394,7 +394,7 @@ C# 支持满足以下两个条件的元组类型之间的赋值：
 
 从 C# 7.3 开始，元组类型支持 `==` 和 `!=` 运算符。 这些运算符按照元组元素的顺序将左侧操作数的成员与相应的右侧操作数的成员进行比较。
 
-```csharp
+```C#
 (int a, byte b) left = (5, 10);
 (long a, int b) right = (5, 10);
 Console.WriteLine(left == right);  // output: True
@@ -413,7 +413,7 @@ Console.WriteLine(t1 != t2);  // output: False
 
 `==` 和 `!=` 运算符将以短路方式对元组进行比较。 也就是说，一旦遇见一对不相等的元素或达到元组的末尾，操作将立即停止。 但是，在进行任何比较之前，将对所有元组元素进行计算，如以下示例所示：
 
-```csharp
+```C#
 Console.WriteLine((Display(1), Display(2)) == (Display(3), Display(4)));
 
 int Display(int s)
@@ -447,7 +447,7 @@ int Display(int s)
 
 string类型是Unicode字符的集合，是System.String的别名。使用==和!=比较Unicode集合的值是否相等，使用Object.ReferenceEquals()比较引用值本身是否相等。逐字字符串以@开头，不处理转义序列。若要在 @-quoted 字符串中包含双引号，双倍添加即可：
 
-```csharp
+```C#
 @"""Ahoy!"" cried the captain." // "Ahoy!" cried the captain.
 ```
 
@@ -476,6 +476,6 @@ C#只允许单一继承，但是一个类可以实现多个接口。
 
 ## 参考资料
 
-> - [C#教程 菜鸟教程](https://www.runoob.com/csharp/)
-> - [C#入门经典](https://shenjun4csharp.github.io/csharphtml/)
-> - [C#指南 语言参考](https://docs.microsoft.com/zh-cn/dotnet/csharp/language-reference/builtin-types/floating-point-numeric-types)
+> - [C#教程 菜鸟教程](https://www.runoob.com/C#/)
+> - [C#入门经典](https://shenjun4C#.github.io/C#html/)
+> - [C#指南 语言参考](https://docs.microsoft.com/zh-cn/dotnet/C#/language-reference/builtin-types/floating-point-numeric-types)

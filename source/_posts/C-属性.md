@@ -2,7 +2,7 @@
 title: C# 属性（Property）
 toc: false
 date: 2020-12-14 21:38:22
-tags: [CSharp]
+tags: [C#]
 categories:
     - 编程语言
     - C Sharp
@@ -12,7 +12,7 @@ C#在字段的基础上延伸出了属性的概念。属性定义包含`get`和`
 
 <!-- more -->
 
-```csharp
+```C#
 public class Person
 {
     public string FirstName { get; set; } = string.Empty;
