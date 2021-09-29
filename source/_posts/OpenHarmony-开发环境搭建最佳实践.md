@@ -11,6 +11,8 @@ categories:
 
 目前OpenHarmony支持的L2设备主要是Hi3861、Hi3516、Hi3518这三种单板，三种设备的驱动目前都只支持Windows设备，所以如果代码开发涉及到烧写单板镜像就需要选择一个Windows开发设备。OpenHarmony的工具链包含repo、ninja、gn、pyhton，这些工具的配置在Linux开发设备上比较容易配置。如果在Windows设备上使用虚拟机，那么Linux系统只能通过软件指令集和硬件交互，效率比较低。所以比较好的实践是将开发环境部署在Linux服务器上，或者使用微软最近力推的WSL2。由于远程服务器的搭建方法在OpenHarmony官网上已经有比较详细的描述，本文将着力介绍如何使用WSL2搭建OpenHarmony开发环境。
 
+<!-- more -->
+
 ## WSL2安装
 
 WSL2的安装见[微软官网](https://docs.microsoft.com/zh-cn/windows/wsl/install)。Linux发行版推荐使用Ubuntu20.04LTS，下文的介绍也将基于这个发行版进行。
