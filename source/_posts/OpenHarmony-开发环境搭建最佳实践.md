@@ -36,7 +36,7 @@ sudo curl -s https://gitee.com/oschina/repo/raw/fork_flow/repo-py3 > /usr/local/
 ```shell
 mkdir OpenHarmony
 cd OpenHarmony
-repo init -u https://gitee.com/openharmony/manifest.git -b OpenHarmony-2.2-Beta2 --no-repo-verify
+repo init -u https://gitee.com/openharmony/manifest.git -b OpenHarmony-3.0-LTS --no-repo-verify
 repo sync -c
 repo forall -c 'git lfs pull'
 ```
