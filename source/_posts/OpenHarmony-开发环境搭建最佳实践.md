@@ -22,14 +22,22 @@ WSL2的安装见[微软官网](https://docs.microsoft.com/zh-cn/windows/wsl/inst
 ### 安装依赖
 
 ```shell
-sudo apt-get update && sudo apt-get install gnutls-bin gcc-arm-linux-gnueabi build-essential fakeroot dpkg-dev git-lfs build-essential gcc g++ make zlib* zip xsltproc x11proto-core-dev wget vim unzip u-boot-tools tzdata texinfo ssh scons python3-minimal python3-setuptools python3-pip python3-distutils python3-apt python3.8-distutils npm nfs-kernel-server mtools mtd-utils m4 locales libxml2-utils libx11-dev libreadline-dev libgl1-mesa-dev libffi* libc6-dev-x32 libc6-dev-i386 lib32z-dev lib32ncurses5-dev gperf gnupg git-lfs git-core g++-multilib g++ flex dosfstools default-jre default-jdk curl ccache build-essential bison binutils bc genext2fs ruby
+sudo apt-get update && sudo apt-get install gnutls-bin build-essential fakeroot dpkg-dev git-lfs build-essential gcc g++ make zlib* zip xsltproc x11proto-core-dev wget vim unzip u-boot-tools tzdata texinfo ssh scons python3-minimal python3-setuptools python3-pip python3-distutils python3-apt python3.8-distutils npm nfs-kernel-server mtools mtd-utils m4 locales libxml2-utils libx11-dev libreadline-dev libgl1-mesa-dev libffi* libc6-dev-x32 libc6-dev-i386 lib32z-dev lib32ncurses5-dev gperf gnupg git-lfs git-core g++-multilib g++ flex dosfstools default-jre default-jdk curl ccache build-essential bison binutils bc genext2fs ruby
 ```
 
 ### 安装工具
 
 ```shell
-sudo curl -s https://gitee.com/oschina/repo/raw/fork_flow/repo-py3 > /usr/local/bin/repo
+curl -s https://gitee.com/oschina/repo/raw/fork_flow/repo-py3 > repo
+mv repo ~/bin
+chmod +x ~/bin/repo
 ```
+
+执行完上述操作之后，执行一下repo指令，如果如下图所示，说明已经安装成功，可以执行之后的操作。
+
+![repo success](./OpenHarmony-开发环境搭建最佳实践/repo-success.png)
+
+如果报错python未找到，那么需要下载2.7版本python，并在PATH路径下建立软连接指向python2.7。如果报错repo指令未找到，检查`~/bin`是否在PATH环境变量中。
 
 ### 创建代码目录拉取代码
 
