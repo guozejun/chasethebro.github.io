@@ -15,9 +15,51 @@ categories:
 
 ## WSL2安装
 
-WSL2的安装见[微软官网](https://docs.microsoft.com/zh-cn/windows/wsl/install)。Linux发行版推荐使用Ubuntu20.04LTS，下文的介绍也将基于这个发行版进行。
+WSL2的安装详情见[微软官网](https://docs.microsoft.com/zh-cn/windows/wsl/install)。Linux发行版推荐使用Ubuntu20.04LTS，下文的介绍也将基于这个发行版进行。
+
+### WSL2 Windows环境准备
+
+打开控制面板，启动hyper-v功能，勾选hyper-v功能之后退出并重启PC。
+
+![hyper-v-1](OpenHarmony-开发环境搭建最佳实践/hyper-v-step1.png)
+![hyper-v-2](OpenHarmony-开发环境搭建最佳实践/hyper-v-step2.png)
+![hyper-v-3](OpenHarmony-开发环境搭建最佳实践/hyper-v-step3.png)
+
+以管理员权限打开PowerShell，执行以下命令，期间可能需要重启PC。
+
+```shell
+wsl --install
+```
+
+### 安装WSL Linux发行版
+
+以管理员权限打开PowerShell
+
+```shell
+wsl --set-default-version 2
+wsl --install -d Ubuntu-20.04
+```
+
+安装完成之后，执行
+
+```shell
+wsl -l -v
+```
+
+![wsl-success](OpenHarmony-开发环境搭建最佳实践/wsl-success.png)
+
+## 下载Windows Terminal（可选）
+
+如果不想安装Windows Terminal，可以直接跳到下一个Chapter获取OpenHarmony的代码。
+
+点击[Windows Terminal](https://www.microsoft.com/en-us/p/windows-terminal/9n0dx20hk701?activetab=pivot:overviewtab)的链接，在微软商店中直接进行下载，或者在Windows Terminal的[Github Release](https://github.com/microsoft/terminal/releases)页面中选择适合的版本下载。
 
 ## OpenHarmony代码获取
+
+启动WSL，之后的操作都在WSL中执行。可以在Windows Terminal中打开WSL或者直接启动WSL终端。
+
+![windows-termianl-wsl](OpenHarmony-开发环境搭建最佳实践/windows-terminal-wsl.png)
+![wsl-boot](OpenHarmony-开发环境搭建最佳实践/wsl-boot.png)
 
 ### 安装依赖
 
@@ -26,6 +68,15 @@ sudo apt-get update && sudo apt-get install gnutls-bin build-essential fakeroot 
 ```
 
 ### 安装工具
+
+检查一下$HOME路径下是否有bin目录，如果没有的话创建一个bin目录，并将bin目录添加到`$PATH`变量中。
+
+```shell
+if [ ! -d "$HOME/bin" ]; then mkdir $HOME/bin; else echo "$HOME/bin exist"; fi
+PATH=$HOME/bin:$PATH
+```
+
+安装repo
 
 ```shell
 curl -s https://gitee.com/oschina/repo/raw/fork_flow/repo-py3 > repo
@@ -37,13 +88,13 @@ chmod +x ~/bin/repo
 
 ![repo success](./OpenHarmony-开发环境搭建最佳实践/repo-success.png)
 
-如果报错python未找到，那么需要下载2.7版本python，并在PATH路径下建立软连接指向python2.7。如果报错repo指令未找到，检查`~/bin`是否在PATH环境变量中。
+如果报错python未找到，建立软连接指向python3。如果报错repo指令未找到，检查`~/bin`是否在PATH环境变量中。
 
 ### 创建代码目录拉取代码
 
 ```shell
-mkdir OpenHarmony
-cd OpenHarmony
+mkdir $YOUR_OPENHARMONY_DIR
+cd $YOUR_OPENHARMONY_DIR
 repo init -u https://gitee.com/openharmony/manifest.git -b OpenHarmony-3.0-LTS --no-repo-verify
 repo sync -c
 repo forall -c 'git lfs pull'
