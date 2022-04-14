@@ -40,7 +40,7 @@ wsl --set-default-version 2
 wsl --install -d Ubuntu-20.04
 ```
 
-安装完成之后，执行
+安装完成之后，执行以下命令，如果结果如下图所示，则WSL环境已经准备完成。
 
 ```shell
 wsl -l -v
