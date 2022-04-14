@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>typedef using 定义别名与复杂类型的解析 - Leslie&#039;s Tech Wiki</title><link rel="manifest" href="/manifest.json"><meta name="theme-color" content="red"><meta name="application-name" content="Leslie&#039;s Tech Wiki"><meta name="msapplication-TileColor" content="red"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Leslie&#039;s Tech Wiki"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta description="类型别名using定义别名的用法和typedef区别不大，但是using可以使用模板，比如： 12template&amp;lt;typename T&amp;gt;using ArrayPointer &amp;#x3D; T(*)[10];  解析复杂类型C++复杂类型的解析遵循以下顺序，方括号和圆括号（即，标识符右侧的修饰符）优先于星号（即，标识符左侧的修饰符）。 方括号和圆括号具有相同的优先级并且都是从左到右关联。 在完全"><meta property="og:type" content="blog"><meta property="og:title" content="typedef using 定义别名与复杂类型的解析"><meta property="og:url" content="https://chasethebro.github.io/2022/04/14/typedef-using-%E5%AE%9A%E4%B9%89%E5%88%AB%E5%90%8D%E4%B8%8E%E5%A4%8D%E6%9D%82%E7%B1%BB%E5%9E%8B%E7%9A%84%E8%A7%A3%E6%9E%90/"><meta property="og:site_name" content="Leslie&#039;s Tech Wiki"><meta property="og:description" content="类型别名using定义别名的用法和typedef区别不大，但是using可以使用模板，比如： 12template&amp;lt;typename T&amp;gt;using ArrayPointer &amp;#x3D; T(*)[10];  解析复杂类型C++复杂类型的解析遵循以下顺序，方括号和圆括号（即，标识符右侧的修饰符）优先于星号（即，标识符左侧的修饰符）。 方括号和圆括号具有相同的优先级并且都是从左到右关联。 在完全"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://chasethebro.github.io/img/og_image.png"><meta property="article:published_time" content="2022-04-14T11:49:41.000Z"><meta property="article:modified_time" content="2022-04-14T11:57:45.549Z"><meta property="article:author" content="Leslie Guo"><meta property="article:tag" content="C++"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://chasethebro.github.io/2022/04/14/typedef-using-%E5%AE%9A%E4%B9%89%E5%88%AB%E5%90%8D%E4%B8%8E%E5%A4%8D%E6%9D%82%E7%B1%BB%E5%9E%8B%E7%9A%84%E8%A7%A3%E6%9E%90/"},"headline":"Leslie's Tech Wiki","image":["https://chasethebro.github.io/img/og_image.png"],"datePublished":"2022-04-14T11:49:41.000Z","dateModified":"2022-04-14T11:57:45.549Z","author":{"@type":"Person","name":"Leslie Guo"},"description":"类型别名using定义别名的用法和typedef区别不大，但是using可以使用模板，比如： 12template&lt;typename T&gt;using ArrayPointer &#x3D; T(*)[10];  解析复杂类型C++复杂类型的解析遵循以下顺序，方括号和圆括号（即，标识符右侧的修饰符）优先于星号（即，标识符左侧的修饰符）。 方括号和圆括号具有相同的优先级并且都是从左到右关联。 在完全"}</script><link rel="canonical" href="https://chasethebro.github.io/2022/04/14/typedef-using-%E5%AE%9A%E4%B9%89%E5%88%AB%E5%90%8D%E4%B8%8E%E5%A4%8D%E6%9D%82%E7%B1%BB%E5%9E%8B%E7%9A%84%E8%A7%A3%E6%9E%90/"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><!--!--><script>var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?b2d618410624732265a9a52a938c84ff";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();</script><!--!--><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/cookieconsent/3.1.1/cookieconsent.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/css/justifiedGallery.min.css"><script src="https://www.googletagmanager.com/gtag/js?id=G-1V0RN73FVE" async></script><script>window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+    
+        gtag('config', 'G-1V0RN73FVE');</script><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/pace/1.0.2/pace.min.js"></script><!--!--><!--!--><meta name="generator" content="Hexo 5.2.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/">Leslie&#039;s Tech Wiki</a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Chase The Bro" href="https://github.com/guozejun"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2022-04-14T11:49:41.000Z" title="2022-04-14T11:49:41.000Z">2022-04-14</time>发表</span><span class="level-item"><time dateTime="2022-04-14T11:57:45.549Z" title="2022-04-14T11:57:45.549Z">2022-04-14</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a><span> / </span><a class="link-muted" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/C/">C++</a></span><span class="level-item">3 分钟读完 (大约466个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">typedef using 定义别名与复杂类型的解析</h1><div class="content"><h2 id="类型别名"><a href="#类型别名" class="headerlink" title="类型别名"></a>类型别名</h2><p>using定义别名的用法和typedef区别不大，但是using可以使用模板，比如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">using</span> ArrayPointer = T(*)[<span class="number">10</span>];</span><br></pre></td></tr></table></figure>
+
+<h2 id="解析复杂类型"><a href="#解析复杂类型" class="headerlink" title="解析复杂类型"></a>解析复杂类型</h2><p>C++复杂类型的解析遵循以下顺序，方括号和圆括号（即，标识符右侧的修饰符）优先于星号（即，标识符左侧的修饰符）。 方括号和圆括号具有相同的优先级并且都是从左到右关联。 在完全解释声明符之后，将应用类型说明符以作为最后一步。 通过使用圆括号，您可以重写默认关联顺序和强制实施特定解释。 但是，绝不要单独在标识符名称两边使用圆括号。 这可能会被错误解释为参数列表。</p>
+<p>解释复杂声明符的一个简单方法是通过下列 4 个步骤“从里到外”地读取它们：</p>
+<ol>
+<li>从标识符开始并直接查找方括号或圆括号（如果有）的右侧。</li>
+<li>解释这些方括号或圆括号，然后查找星号的左侧。</li>
+<li>如果在任何阶段遇到一个右圆括号，请返回并将规则 1 和 2 应用于圆括号内的所有内容。</li>
+<li>应用类型说明符。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">char *( *(*var)() )[10];</span><br><span class="line"> ^   ^  ^ ^ ^   ^    ^</span><br><span class="line"> 7   6  4 2 1   3    5</span><br></pre></td></tr></table></figure>
+
+<p>在此示例中，步骤是按顺序编号的，并且可以按如下方式解释：</p>
+<ol>
+<li>标识符 var 声明为</li>
+<li>指向以下内容的指针</li>
+<li>返回以下内容的函数</li>
+<li>指向以下内容的指针</li>
+<li>包含 10 个元素的数组，这些元素分别为</li>
+<li>指向以下内容的指针</li>
+<li>char 值。</li>
+</ol>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/cpp/c-language/interpreting-more-complex-declarators?view=msvc-170">解释复杂声明符</a></li>
+<li><a target="_blank" rel="noopener" href="https://cdecl.org/">cdecl</a></li>
+</ul>
+</blockquote>
+</div><div class="article-licensing box"><div class="licensing-title"><p>typedef using 定义别名与复杂类型的解析</p><p><a href="https://chasethebro.github.io/2022/04/14/typedef-using-%E5%AE%9A%E4%B9%89%E5%88%AB%E5%90%8D%E4%B8%8E%E5%A4%8D%E6%9D%82%E7%B1%BB%E5%9E%8B%E7%9A%84%E8%A7%A3%E6%9E%90/">https://chasethebro.github.io/2022/04/14/typedef-using-%E5%AE%9A%E4%B9%89%E5%88%AB%E5%90%8D%E4%B8%8E%E5%A4%8D%E6%9D%82%E7%B1%BB%E5%9E%8B%E7%9A%84%E8%A7%A3%E6%9E%90/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Leslie Guo</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2022-04-14</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-04-14</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a class="icon" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a><a class="icon" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/C/">C++</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2021/09/24/OpenHarmony-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/"><span class="level-item">OpenHarmony 开发环境搭建最佳实践</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><script src="https://utteranc.es/client.js" repo="guozejun/chasethebro.github.io" issue-term="url" label="💬" theme="github-light" crossorigin="anonymous" async></script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#类型别名"><span class="level-left"><span class="level-item">1</span><span class="level-item">类型别名</span></span></a></li><li><a class="level is-mobile" href="#解析复杂类型"><span class="level-left"><span class="level-item">2</span><span class="level-item">解析复杂类型</span></span></a></li><li><a class="level is-mobile" href="#参考资料"><span class="level-left"><span class="level-item">3</span><span class="level-item">参考资料</span></span></a></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/">Leslie&#039;s Tech Wiki</a><p class="is-size-7"><span>&copy; 2022 Leslie Guo</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Chase The Bro" href="https://github.com/guozejun"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdnjs.loli.net/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" async></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/cookieconsent/3.1.1/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/js/lightgallery.min.js" defer></script><script src="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdnjs.loli.net/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
